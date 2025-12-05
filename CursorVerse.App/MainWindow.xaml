@@ -1,0 +1,56 @@
+<Window x:Class="CursorVerse.App.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+        Title="CursorVerse" 
+        Height="900" 
+        Width="1600"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        ResizeMode="CanResizeWithGrip">
+
+    <Window.Resources>
+        <Style x:Key="TitleBarButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#2A0A3F"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="TitleBarCloseButtonStyle" TargetType="Button" BasedOn="{StaticResource TitleBarButtonStyle}">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#DC143C"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    
+    <Border BorderBrush="#FF0080" BorderThickness="1" CornerRadius="12" Background="#1E0731">
+        <Grid>
+            <!-- Custom Title Bar -->
+            <Grid Height="40" VerticalAlignment="Top" Background="#0f0520" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="15,0,0,0" VerticalAlignment="Center">
+                    <TextBlock Text="CursorVerse" FontSize="16" FontWeight="Bold" Foreground="#FF0080" VerticalAlignment="Center"/>
+                    <TextBlock Text=" v1.7.0" FontSize="12" Foreground="#C724B1" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                </StackPanel>
+                
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,10,0">
+                    <Button Content="−" Width="40" Height="30" Click="MinimizeButton_Click" Style="{StaticResource TitleBarButtonStyle}"/>
+                    <Button Content="□" Width="40" Height="30" Click="MaximizeButton_Click" Style="{StaticResource TitleBarButtonStyle}"/>
+                    <Button Content="✕" Width="40" Height="30" Click="CloseButton_Click" Style="{StaticResource TitleBarCloseButtonStyle}"/>
+                </StackPanel>
+            </Grid>
+
+            <!-- WebView2 для отображения React приложения -->
+            <wv2:WebView2 x:Name="webView" Margin="0,40,0,0"/>
+        </Grid>
+    </Border>
+</Window>
